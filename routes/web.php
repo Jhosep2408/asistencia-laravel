@@ -14,7 +14,19 @@ use App\Http\Controllers\HolidayController;
 
 
 
-
+Route::get('/test-db', function() {
+    try {
+        \DB::connection()->getPdo();
+        echo "BD conectada<br>";
+        
+        $users = \App\Models\User::count();
+        echo "Usuarios en BD: " . $users . "<br>";
+        
+        echo "Todo OK!";
+    } catch (\Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+});
 // Authentication Routes
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
