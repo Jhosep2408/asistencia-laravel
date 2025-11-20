@@ -34,7 +34,17 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/attendance/load', [AttendanceController::class, 'load'])->name('attendance.load');
     // ... el resto de tus rutas admin
 });
-
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth'); // Asegúrate de que tenga middleware auth
+Route::get('/debug-auth', function() {
+    return [
+        'is_authenticated' => auth()->check(),
+        'user' => auth()->user(),
+        'session_id' => session()->getId(),
+        'session_data' => session()->all()
+    ];
+});
 // Rutas para gestión de feriados
 // Rutas para gestión de feriados
 Route::prefix('holidays')->group(function () {
